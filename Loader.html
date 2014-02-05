@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script>
+        var temp = [];
+        window.onload = function(){
+            var ctx = document.getElementById("can").getContext("2d");
+            temp.push(new loader({
+                ctx : ctx
+            })) ;
+
+            cSlider.loader(ctx);
+        };
+        var cSlider = {
+            width: 1024,
+            height:400
+        };
+        function loader (config){
+            cSlider.extend(this, config);
+        }
+        loader.prototype.alpha = 1;
+        loader.prototype.width = 1024;
+        loader.prototype.height = 400;
+        loader.prototype.x = 0;
+        loader.prototype.y = 0;
+        loader.prototype.ctx = null;
+        loader.prototype.radius = 0;
+        loader.prototype.draw = function(){
+            var width = this.width,
+                height = this.height;
+            var ctx = this.ctx;
+            ctx.clearRect(0,0,width,height );
+            //Big arc
+            ctx.beginPath();
+            ctx.arc(width/2,height/2,  this.radius, 0, Math.PI * 2 , true );
+            ctx.lineWidth = 2;
+            ctx.globalAlpha = this.alpha;
+            // line color
+            ctx.strokeStyle = 'white';
+            ctx.stroke();
+
+        };
+        cSlider.extend = function (obj1, obj2) {
+            for (var obj in obj2) {
+                obj1[obj] = obj2[obj];
+            }
+        };
+        cSlider.loader = function(ctx){
+            var width = cSlider.width,
+                height = cSlider.height;
+
+            cSlider.animate({
+                duration: 1500,
+                startValue:0,
+                endValue: 1,
+                onChange: function(delta){
+                  console.log(delta);
+                    for(var i=0; i< temp.length;i++){
+                        temp[i].radius =  25 * delta;
+                        temp[i].alpha = 1-delta;
+                        temp[i].draw();
+                    }
+                },
+                onComplete: function(){
+                    cSlider.loader(ctx);
+                }
+            });
+        };
+        cSlider.animate = function(options) {
+            options || (options = {});
+
+            var start = +new Date(),
+                    duration = options.duration || 500,
+                    finish = start + duration, time,
+                    onChange = options.onChange || function () { },
+                    abort = options.abort || function () { return false; },
+                    easing = options.easing || function (t, b, c, d) { return -c * Math.cos(t / d * (Math.PI / 2)) + c + b; },
+                    startValue = 'startValue' in options ? options.startValue : 0,
+                    endValue = 'endValue' in options ? options.endValue : 100,
+                    byValue = options.byValue || endValue - startValue;
+
+            options.onStart && options.onStart();
+
+            (function tick() {
+                time = +new Date();
+                var currentTime = time > finish ? duration : (time - start);
+                onChange(easing(currentTime, startValue, byValue, duration));
+                if (time > finish || abort()) {
+                    options.onComplete && options.onComplete();
+                    return;
+                }
+                requestAnimationFrame(tick);
+            })();
+        };
+        var webkit = window.webkitRequestAnimationFrame,
+                moz = window.mozRequestAnimationFrame,
+                opera = window.oRequestAnimationFrame,
+                ms = window.msRequestAnimationFrame,
+                req = window.requestAnimationFrame,
+                creq = window.cancelAnimationFrame,
+                cwebkit = window.webkitCancelAnimationFrame,
+                cmoz = window.mozCancelRequestAnimationFrame,
+                copera = window.oCancelRequestAnimationFrame,
+                cms = window.msCancelRequestAnimationFrame;
+
+        var requestAnimationFrame = (req || webkit || moz || ms || opera ||function (callback) { return window.setTimeout(callback, 17 /*~ 1000/60*/); });
+        var cancelAnimationFrame = (window.cancelRequestAnimationFrame || window.webkitCancelAnimationFrame || window.webkitCancelRequestAnimationFrame || window.mozCancelAnimationFrame || window.mozCancelRequestAnimationFrame ||
+                window.msCancelAnimationFrame || cms || window.oCancelAnimationFrame || copera || window.clearTimeout);
+
+        window.requestTimeout = function(fn, delay) {
+            if( !req && !webkit && !(moz && cmoz) && !opera && !ms)
+                return window.setTimeout(fn, delay);
+
+            var start, handle;
+            start = new Date().getTime();
+            handle = new Object();
+
+            function loop(){
+                var current = new Date().getTime(),
+                        delta = current - start;
+
+                delta >= delay ? fn.call() : handle.value = requestAnimationFrame(loop);
+            };
+
+            handle.value = requestAnimationFrame(loop);
+            return handle;
+        };
+
+        window.requestInterval = function(fn, delay) {
+            if( !req && !webkit && !(moz && cmoz) && !opera && !ms)
+                return window.setInterval(fn, delay);
+
+            var start = new Date().getTime(),
+                    handle = new Object();
+
+            function loop() {
+                var current = new Date().getTime(),
+                        delta = current - start;
+                if(delta >= delay) {
+                    fn.call();
+                    start = new Date().getTime();
+                }
+                handle.value = requestAnimFrame(loop);
+            };
+
+            handle.value = requestAnimFrame(loop);
+            return handle;
+        }
+
+        window.clearRequestInterval = function(handle) {
+            window.cancelAnimationFrame ? window.cancelAnimationFrame(handle.value) :
+                    window.webkitCancelAnimationFrame ? window.webkitCancelAnimationFrame(handle.value) :
+                            window.webkitCancelRequestAnimationFrame ? window.webkitCancelRequestAnimationFrame(handle.value) : /* Support for legacy API */
+                                    window.mozCancelRequestAnimationFrame ? window.mozCancelRequestAnimationFrame(handle.value) :
+                                            window.oCancelRequestAnimationFrame	? window.oCancelRequestAnimationFrame(handle.value) :
+                                                    window.msCancelRequestAnimationFrame ? window.msCancelRequestAnimationFrame(handle.value) :
+                                                            clearInterval(handle);
+        };
+
+    </script>
+</head>
+<body>
+    <div id="demo">
+        <canvas id="can" width="1024" height="400" style="border: 1px solid black;background-color: black;"></canvas>
+    </div>
+</body>
+</html>

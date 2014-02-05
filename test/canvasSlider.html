@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="../js/jquery.min.js"></script>
+    <script src="sliderAnim.js" ></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            var mySlider = $("#mySlider").canvasSlider({
+                width: 960,
+                height: 400,
+                fluid: true,
+
+                startIndex: 0,
+
+                mouse: true,
+                keyboard: true,
+                swipe: true,
+
+                speed: 500,
+                loop: true,
+
+                autoplay: true,
+                interval: 5000,
+                pauseOnHover: false,
+                pauseOnClick: true,
+
+                playButton: true,
+                playButtonHide: false,
+                playText: 'play',
+                pauseText: 'stop',
+
+                directionNav: true,
+                directionNavHide: false,
+                nextText: 'Next',
+                prevText: 'Prev',
+
+                controlNav: true,
+                controlNavThumbs: false,
+                controlNavHide: false,
+                customIndex: [],
+
+                addLinkToImage: true,
+                linkTarget: '_blank',
+
+                captionAnimation: true,
+                captionEffect: 'fade',
+                captionMove: 20,
+                captionSpeed: 400,
+                captionDelay: 200,
+                captionEasing: 'swing',
+
+                animation: true,
+                effect: 'gridFadeLeft',
+                barColumns: 12,
+                barRows: 5,
+                gridColumns: 12,
+                gridRows: 5,
+
+                before: function(){},
+                after: function(){},
+                start: function(){},
+                complete: function(){}
+            });
+
+        });
+    </script>
+    <style>
+        .canvasSlider{position:relative;width:900px;height:360px;border:0;margin:0 auto;padding:0;}.canvasSlider ul.slides{position:relative;list-style:none;overflow:hidden;border:0;width:100%;height:100%;margin:0;padding:0;}.canvasSlider ul.slides li{position:absolute;top:0;border:0;overflow:hidden;width:100%;height:100%;background:#fff;margin:0;padding:0;}.canvasSlider ul.slides li img.main-image{position:relative;width:100%;height:100%;border:0;margin:0;padding:0;}.canvasSlider ul.slides li a.main-link{text-decoration:none;outline:none;border:0;margin:0;padding:0;}.canvasSlider a.directionNav{display:block;text-decoration:none;position:absolute;border:0;overflow:hidden;cursor:pointer;outline:none;font-size:1em;padding:0;}.canvasSlider a.directionNav.next{top:45%;right:1%;}.canvasSlider a.directionNav.prev{top:45%;left:1%;}.canvasSlider ul.controlNav{width:100%;position:absolute;text-align:center;bottom:0;background:none;font-size:1em;}.canvasSlider ul.controlNav li a{display:block;cursor:pointer;text-decoration:none;outline:none;}.canvasSlider ul.controlNav li a:hover{color:#000;}.canvasSlider ul.controlNav li a.active{color:#000;cursor:default;}.canvasSlider ul.controlNav.thumbs{width:100%;position:absolute;text-align:center;bottom:0;}.canvasSlider ul.controlNav.thumbs li a{display:block;cursor:pointer;text-decoration:none;outline:none;background:none;}.canvasSlider ul.controlNav.thumbs li a.active{cursor:default;}.canvasSlider ul.controlNav.thumbs li a img{border:0;width:100px;height:50px;margin:0;padding:0;}.canvasSlider ul.playButton{position:absolute;top:20px;right:20px;list-style:none;width:45px;height:20px;background:#000;margin:0;padding:0;}.canvasSlider ul.playButton li{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;text-align:center;color:#fff;cursor:pointer;margin:0;}.canvasSlider ul.slides li .canvas-caption{position:absolute;font-family:Times New Roman;font-size:2.5em;font-weight:700;}.canvasSlider a.directionNav.last,.canvasSlider a.directionNav.first{cursor:default;color:#000;}.canvasSlider ul.controlNav li,.canvasSlider ul.controlNav.thumbs li{display:inline-block;margin:0 0 0 5px;}.canvasSlider ul.controlNav li:first-child,.canvasSlider ul.controlNav.thumbs li:first-child{margin:0;}
+    </style>
+</head>
+<body>
+<div id="mySlider" class="canvasSlider default">
+
+    <ul class="slides">
+
+        <li data-src="../images/img1.jpg" data-url="http://codecanyon.net/user/evoslider">
+
+            <div class="canvas-caption big dark" data-effect="left" data-move="50" style="left: 75%; top: 60%;">Simple,</div>
+            <div class="canvas-caption medium dark" data-effect="right" data-move="50" style="left: 76%; top: 70%;">yet brilliant</div>
+
+            <div class="canvas-caption image-link" style="right: 20px; bottom: 10px;" data-effect="fade">
+                <a href="http://photodune.net/item/computer/351817" target="_blank">Computer</a>
+            </div>
+
+        </li>
+
+        <li data-src="../images/img2.jpg" data-url="http://codecanyon.net/user/evoslider">
+
+            <div class="canvas-caption big dark" style="left: 10%; top: 70%;" data-effect="left" data-move="50">Saves Development Time</div>
+            <div class="canvas-caption big dark" style="left: 10%; top: 80%;" data-effect="right" data-move="50">Free Support & Upgrades</div>
+
+            <div class="canvas-caption image-link" style="right: 20px; bottom: 10px;" data-effect="fade">
+                <a href="http://photodune.net/item/wind-power-generation-/1429537" target="_blank">Wind power generation</a>
+            </div>
+
+        </li>
+
+    </ul>
+
+</div>
+
+
+</body>
+</html>

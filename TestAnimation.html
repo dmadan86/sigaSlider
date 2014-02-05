@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #171819;
+        }
+    </style>
+    <script>
+        // rAF
+        window.requestAnimationFrame = function () {
+            return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                window.msRequestAnimationFrame ||
+                window.oRequestAnimationFrame ||
+                function(f) {
+                    window.setTimeout(f, 1e3 / 60);
+                };
+        }();
+
+        window.onload = function() {
+            var canvas = document.getElementById('canvas'),
+               ctx = canvas.getContext('2d'),
+               window_width = window.innerWidth,
+               window_height = window.innerHeight;
+
+            canvas.width = window_width;
+            canvas.height = window_height;
+
+            var now, then = new Date().getTime(), delta;
+            
+            //Create an object for the circle first
+            var circle = {
+                // Basic attributes
+                x: 150,
+                y: 150,
+                radius: 50,
+                color: "white",
+
+                // Function to draw the circle
+                draw: function () {
+                    ctx.beginPath();
+                    ctx.fillStyle = this.color;
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                    ctx.closePath();
+                    ctx.fill();
+                }
+            };
+
+            // Now moving it
+            function move() {
+                now = new Date().getTime();
+                delta = now - then;
+
+                ctx.clearRect(0, 0, window_width, window_height);
+                var c = circle;
+                c.draw();
+                c.x += calcSpeed(delta, 10);
+
+                if (c.x - c.radius > window_width)
+                    c.x = -c.radius;
+                then = now;
+            }
+
+            var calcSpeed = function (del, speed) {
+                return (speed * 60 * del) / 1000;
+            };
+
+            var animloop = function () {
+                requestAnimationFrame(animloop);
+                move();
+            };
+
+            animloop();
+        };
+       
+
+        
+    </script>
+
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+</body>
+</html>

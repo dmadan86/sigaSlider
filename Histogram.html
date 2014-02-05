@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script type="text/javascript">
+        var canvas, ctx;
+        window.onload = function () {
+            canvas = document.getElementById("canvas");
+            ctx = canvas.getContext("2d");
+
+            canvas.onmousemove = function (e) {
+                var pos = findPos(this);
+                var x = e.pageX - pos.x;
+                var y = e.pageY - pos.y;
+                var p = ctx.getImageData(x, y, 1, 1).data;
+                var hex = "#" + ("000000" + rgbToHex(p[0], p[1], p[2])).slice(-6);
+                console.log(hex);
+            };
+
+            var img = new Image();
+            img.onload = function() {
+                canvas.width = this.width;
+                canvas.height = this.height;
+                ctx.drawImage(img, 0, 0);
+            };
+            img.src = "images/slider1.jpg";
+        };
+        
+        function histogram() {
+            if (!canvas) return;
+            var img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            //console.log(img);
+            var blue=0, green=0, red =0;
+            for (var i = 0, len = img.length; i < len; i++) {
+                
+            }
+
+        }
+        function rgbToHex(r, g, b) {
+            return ((r << 16) | (g << 8) | b).toString(16);
+        }
+        
+        function findPos(obj) {
+            var curleft = 0, curtop = 0;
+            if (obj.offsetParent) {
+                do {
+                    curleft += obj.offsetLeft;
+                    curtop += obj.offsetTop;
+                } while (obj = obj.offsetParent);
+                return { x: curleft, y: curtop };
+            }
+            return undefined;
+        }
+
+        function rgb2cmyk(r, g, b) {
+            var computedC = 0,
+                computedM = 0,
+                computedY = 0,
+                computedK = 0;
+
+            //remove spaces from input RGB values, convert to int
+            r = parseInt(r, 10);
+            g = parseInt(g, 10);
+            b = parseInt(b, 10);
+
+            if (r == 0 && g == 0 && b == 0) 
+                return [0, 0, 0, 1];
+
+            computedC = 1 - (r / 255);
+            computedM = 1 - (g / 255);
+            computedY = 1 - (b / 255);
+
+            var minCMY = Math.min(computedC, Math.min(computedM, computedY));
+            computedC = (computedC - minCMY) / (1 - minCMY);
+            computedM = (computedM - minCMY) / (1 - minCMY);
+            computedY = (computedY - minCMY) / (1 - minCMY);
+            computedK = minCMY;
+
+            return [computedC, computedM, computedY, computedK];
+        }
+    </script>
+</head>
+    <body style="width: 100%;">
+        <div >
+            <canvas id="canvas" style="box-shadow: 0px 0px 5px rgba(0,0,0,0.35);margin: 10px auto;"></canvas>
+        </div>
+    
+        <button onclick="histogram();"></button>
+    </body>
+</html>

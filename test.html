@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QuadraticCurveTo example</title>
+    <script type="text/javascript">
+        function beginDemo() {
+            var canvas = document.getElementById("demo")
+            var ctx = canvas.getContext('2d');
+            // Draw a straight reference line.
+            //ctx.beginPath();
+            ctx.lineWidth = "3";
+            ctx.strokeStyle = "black";
+            /*
+            ctx.rotate(2 * Math.PI  );
+                       console.log(2 * Math.PI  )
+            ctx.moveTo(250, 50);
+            ctx.lineTo(250, 250);
+            */
+            ctx.arc(canvas.width/2, canvas.height/2, canvas.width/2, convertToRadians(270 - 10), convertToRadians(270 +10) , false);
+
+            ctx.stroke();
+            /*
+            ctx.beginPath();
+            ctx.lineWidth = "3";
+            ctx.strokeStyle = "black";
+            ctx.moveTo(100, 100);
+            ctx.quadraticCurveTo(100, 100, 300, 100);
+            ctx.stroke();*/
+        }
+        var convertToRadians = function (degree) {
+            return degree*(Math.PI/180);
+        };
+    </script>
+</head>
+<body onload="beginDemo();">
+<canvas id="demo" width="400" height="400"></canvas>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<html>
+<head>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #333333;
+            background-color: rgba(196, 196, 196, 0.5);
+            color:#333333;
+            font-size:12px;
+            line-height:18px;
+            padding:0;
+        }
+        * { margin: 0; padding:0; }
+
+        article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {
+            display: block;
+        }
+        audio, canvas, video {
+            display: inline-block;
+            *display: inline;
+            *zoom: 1;
+        }
+        .black {
+            margin: 25px auto;
+        }
+        #container{
+            margin: 0 auto;
+            width:1050px;
+        }
+        h1, h2{
+            margin: 10px 0px;
+        }
+
+        ul li{
+            margin-left:30px;
+        }
+
+        span.comment { color: #008080; font-weight: normal; }
+        span.oper { color: #0000f0; font-weight: normal; }
+        span.var { color: #d56000; font-weight: normal; }
+        span.func { color: #aa00ff; font-weight: normal; }
+        span.string { color: #777777; font-weight: normal; }
+        span.num { color: #990000; font-weight: bold; }
+        span.reg { color: #8d7f07; font-weight: normal; }
+
+        .column{
+            -o-column-count: 3;
+            -moz-column-count: 3;
+            -ms-column-count: 3;
+            -webkit-column-count: 3;
+            column-count: 3;
+        }
+        pre{
+            margin:10px 0px 5px;
+        }
+    </style>
+
+    <link rel="stylesheet" href="css/sigslider.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/sigaSlider.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            var animName= $("#animName")[0];
+            $("#wrapper").SigaSlider({
+                height:300,
+                width:768,
+                boxCols:20,
+                boxRows: 10,
+                animSpeed: 1500,
+                pauseTime: 1000,
+                transitions: ["blindright"],
+                onChange: function(index, animationType){
+                    animName.innerHTML = animationType;
+                }
+            });
+
+            var obj = SigaSlider.animationArray.slice(0);
+            obj.splice(0, 0 , "random");
+            for(var i= 0,  s = []; i< obj.length;i++){
+                s.push("<option value='" + obj[i] +"'>" + obj[i] +"</option>")
+            }
+
+            $("#animationList").html(s.join("")).change(function(){
+                $("#wrapper").data("sigaslider").setTransition(this.value);
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="container">
+    <div id="wrapper" class="black">
+        <img src="images/img1.jpg" alt="<b>Image 1 Caption</b>"/>
+        <img src="images/img2.jpg" alt="#img2"/>
+        <img src="images/img3.jpg" alt="#img3"/>
+        <img src="images/img4.jpg" alt="#img4"/>
+        <img src="images/img5.jpg" alt="Image 5 Caption"/>
+    </div>
+    <br/>
+    <div style="margin-left:140px;float:left;width: 250px;text-transform:capitalize;font-size: 13px;">Current animation: <b><label id="animName">Dizzle</label></b></div>
+    <div style="float:left;">Choose your animation: <select id="animationList"></select></div>
+    <div id="img2">Image 2 Caption</div>
+    <div id="img3">Image 3 Caption</div>
+    <div id="img4">Image 4 Caption</div>
+    <br/>
+
+    <div id="documentation">
+        <h1>Features</h1>
+        <ul>
+            <li>Auto slide</li>
+            <li>Continuous sliding</li>
+            <li>Image captions</li>
+            <li>Flexible configuration</li>
+            <li>42 transitions effects</li>
+            <li>Fully Hardware accelerator</li>
+        </ul>
+        <br/>
+        <h1>Documentation</h1>
+        <p>This plugin is really easy to use. After you download the plugin add the following lines between the HEAD tag on your page:</p>
+        <pre>
+    <span class="oper">&lt;</span><span class="var">link</span> <span class="var">rel</span><span class="oper">=</span>&quot;<span class="string">stylesheet</span>&quot; <span class="var">href</span><span class="oper">=</span>&quot;<span class="string">sigslider.min.css</span>&quot;<span class="oper">&gt;</span>
+    <span class="oper">&lt;</span><span class="var">script</span> <span class="var">type</span><span class="oper">=</span>&quot;<span class="string">text/javascript</span>&quot; <span class="var">src</span><span class="oper">=</span>&quot;<span class="string">jquery.min.js</span>&quot;<span class="oper">&gt;</span><span class="oper">&lt;</span>/<span class="var">script</span><span class="oper">&gt;</span>
+    <span class="oper">&lt;</span><span class="var">script</span> <span class="var">type</span><span class="oper">=</span>&quot;<span class="string">text/javascript</span>&quot; <span class="var">src</span><span class="oper">=</span>&quot;<span class="string">jquery.sexyslider.min.js</span>&quot;<span class="oper">&gt;</span><span class="oper">&lt;</span>/<span class="var">script</span><span class="oper">&gt;</span>
+        </pre>
+        <p>Next all you have to do is create a wrapper with some ID and put the next code below it:</p>
+        <p>The above code will take all images from the div 'wrapper' and will create the slider. If you want to comment below images just add text in alt tag.</p>
+        <pre>
+    <span class="oper">&lt;</span><span class="var">div</span> <span class="var">id</span><span class="oper">=</span>'<span class="string">wrapper</span>'<span class="oper">&gt;</span>
+      <span class="oper">&lt;</span><span class="var">img</span> <span class="var">src</span><span class="oper">=</span>'<span class="string">image1.jpg</span>' /<span class="oper">&gt;</span>
+      <span class="oper">&lt;</span><span class="var">img</span> <span class="var">src</span><span class="oper">=</span>'<span class="string">image2.jpg</span>' <span class="var">alt</span><span class="oper">=</span>'<span class="string">description</span>' /<span class="oper">&gt;</span>
+      <span class="oper">&lt;</span><span class="var">img</span> <span class="var">src</span><span class="oper">=</span>'<span class="string">image3.jpg</span>' /<span class="oper">&gt;</span>
+    <span class="oper">&lt;</span>/<span class="var">div</span><span class="oper">&gt;</span>
+        </pre>
+        <p>You have 42 predifined effects that you can use:</p>
+
+        <ul class="column">
+            <li>Dizzle</li>
+            <li>Diagonal</li>
+            <li>HorizontalSunBlind</li>
+            <li>VerticalSunBlind</li>
+            <li>JawTop</li>
+            <li>JawLeft</li>
+            <li>CenterSlide</li>
+            <li>BlindRight</li>
+            <li>BlindLeft</li>
+            <li>Circle</li>
+            <li>Clock</li>
+            <li>CircleIn</li>
+            <li>CircleOut</li>
+            <li>CircleFlip</li>
+            <li>Square</li>
+            <li>SquareType</li>
+            <li>SquareBoxOut</li>
+            <li>SquareBoxIn</li>
+            <li>SpinFadeOut</li>
+            <li>SpinFadeIn</li>
+            <li>SlideIn</li>
+            <li>SlideOut</li>
+            <li>SlideUp</li>
+            <li>SlideDown</li>
+            <li>BounceIn</li>
+            <li>BounceOut</li>
+            <li>BounceUp</li>
+            <li>BounceDown</li>
+            <li>CurtainIn</li>
+            <li>CurtainOut</li>
+            <li>ContinousSlide</li>
+            <li>SlideContinuousBreakVertical</li>
+            <li>SlideContinuousBreakHorizontal</li>
+            <li>RectangleNorthWest</li>
+            <li>RectangleNorthEast</li>
+            <li>RectangleSouthWest</li>
+            <li>RectangleSouthEast</li>
+            <li>RectangleWest</li>
+            <li>RectangleEast</li>
+            <li>RectangleSouth</li>
+            <li>RectangleNorth</li>
+            <li>RectangleCenter</li>
+            <li>ShrinkCol</li>
+            <li>ShrinkRow</li>
+            <li>Fade</li>
+            <li>or only "Random"</li>
+        </ul>
+        <br/>
+        <p>Things you can customize: (With their default values)</p>
+        <pre>
+    <span class="var">transitions</span>   <span class="oper">:</span> '<span class="string">random</span>',       <span class="comment">// #id of div to place control buttons.</span>
+    <span class="var">width</span>         <span class="oper">:</span> <span class="num">768</span>,            <span class="comment">// width of slider</span>
+    <span class="var">height</span>        <span class="oper">:</span> <span class="num">300</span>,            <span class="comment">// height of slider</span>
+    <span class="var">boxCols</span>       <span class="oper">:</span> <span class="num">20</span>,             <span class="comment">// number of column strips</span>
+    <span class="var">boxRows</span>       <span class="oper">:</span> <span class="num">10</span>,             <span class="comment">// number of row strips</span>
+    <span class="var">animSpeed</span>     <span class="oper">:</span> <span class="num">1000</span>,           <span class="comment">// Animation speed</span>
+    <span class="var">pauseTime</span>     <span class="oper">:</span> <span class="num">3000</span>,           <span class="comment">// delay between images in ms</span>
+    <span class="var">startSlide</span>    <span class="oper">:</span> <span class="num">1</span>,              <span class="comment">// start slider with the Index of the image</span>
+    <span class="var">directionNav</span>  <span class="oper">:</span> <span class="num">true</span>,           <span class="comment">// hide or show direction controller</span>
+    <span class="var">controlNav</span>    <span class="oper">:</span> <span class="num">true</span>,           <span class="comment">// hide or show control controller</span>
+    <span class="var">pauseOnHover</span>  <span class="oper">:</span> <span class="num">true</span>,           <span class="comment">// on mouse over pause the transistion of next image</span>
+    <span class="var">loader</span>        <span class="oper">:</span> '<span class="string">loader.png</span>',   <span class="comment">// Loader image path</span>
+        </pre>
+        <p>Programmatically set transition</p>
+    <pre>
+    $('<span class="string">#slider</span>').<span class="func">data</span>("<span class="string">sigaslider</span>").<span class="func">setTransition</span>(<span class="string">"ShrinkCol"</span>);
+    </pre>
+
+        <p>Programmatically trigger next and previous slides</p>
+    <pre>
+    $('<span class="string">#slider</span>').<span class="func">data</span>("<span class="string">sigaslider</span>").<span class="func">next</span>();
+    $('<span class="string">#slider</span>').<span class="func">data</span>("<span class="string">sigaslider</span>").<span class="func">prev</span>();
+    </pre>
+        <p>Programmatically set image slide</p>
+    <pre>
+    $('<span class="string">#slider</span>').<span class="func">data</span>("<span class="string">sigaslider</span>").<span class="func">setSlide</span>(<span class="num">2</span>);
+    </pre>
+        <h2>Example</h2>
+        <p>HTML:</p>
+        <pre>
+    <span class="oper">&lt;</span><span class="var">div</span> <span class="var">id</span><span class="oper">=</span>'<span class="string">wrapper</span>'<span class="oper">&gt;</span>
+      <span class="oper">&lt;</span><span class="var">img</span> <span class="var">src</span><span class="oper">=</span>'<span class="string">image1.jpg</span>' <span class="var">alt</span><span class="oper">=</span>'<span class="string">#captionId</span>' /<span class="oper">&gt;</span>
+      <span class="oper">&lt;</span><span class="var">img</span> <span class="var">src</span><span class="oper">=</span>'<span class="string">image2.jpg</span>' <span class="var">alt</span><span class="oper">=</span>'<span class="string">description</span>' /<span class="oper">&gt;</span>
+      <span class="oper">&lt;</span><span class="var">img</span> <span class="var">src</span><span class="oper">=</span>'<span class="string">image3.jpg</span>' /<span class="oper">&gt;</span>
+    <span class="oper">&lt;</span>/<span class="var">div</span><span class="oper">&gt;</span>
+       </pre>
+
+        <p>JS:</p>
+        <pre>
+    <span class="oper">&lt;</span><span class="var">script</span> <span class="var">type</span><span class="oper">=</span>&quot;<span class="string">text/javascript</span>&quot;<span class="oper">&gt;</span>
+      $(<span class="var">document</span>).<span class="func">ready</span>(<span class="oper">function</span>(){
+        $('<span class="string">#slider</span>').<span class="func">SigaSlider</span>({
+          <span class="var">width</span>  <span class="oper">:</span> <span class="num">768</span>,
+          <span class="var">height</span> <span class="oper">:</span> <span class="num">300</span>,
+          <span class="var">boxCols</span> <span class="oper">:</span> <span class="num">20</span>,
+          <span class="var">boxRows</span>  <span class="oper">:</span> <span class="num">10</span>,
+          <span class="var">animSpeed</span>  <span class="oper">:</span> <span class="num">1000</span>,
+          <span class="var">pauseTime</span>  <span class="oper">:</span> <span class="num">3000</span>,
+          <span class="var">transitions</span> <span class="oper">:</span> '<span class="num">['BounceUp', 'Dizzle']</span>' <span class="string">//"random"</span>,
+        });
+      });
+    <span class="oper">&lt;</span>/<span class="var">script</span><span class="oper">&gt;</span>
+        </pre>
+
+
+    </div>
+</div>
+</body>
+</html>

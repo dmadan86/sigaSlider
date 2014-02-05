@@ -1,0 +1,80 @@
+
+.sigaSlider{
+    position:relative;
+}
+.sigaSlider canvas{
+    display:inline-block;
+}
+.sigaSlider .holder{
+    -webkit-box-shadow: 0px 1px 5px 0px #4a4a4a;
+    -moz-box-shadow: 0px 1px 5px 0px #4a4a4a;
+    box-shadow: 0px 1px 5px 0px #4a4a4a;
+    border: 1px solid #000;
+    overflow:hidden;
+}
+.sigaSlider .loader {
+    width: 100px;
+    position: absolute;
+    z-index: 100;
+    top: 47%;
+    left: 50%;
+    margin-left: -50px;
+}
+.sigaSlider .loader .text {
+    font: 25px bold;
+    margin-left: 10px;
+}
+.sigaSlider .info{
+    bottom: 0px;
+    height: 30px;
+    background-color: rgba(0,0,0,0.5);
+    width: 100%;
+    position: absolute;
+    z-index: 100;
+    color: white;
+}
+.sigaSlider .info span{
+    margin-left:25px;
+    line-height: 30px;
+}
+
+.sigaSlider ul.nav{
+    z-index: 100;
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+    left: 50%;
+    display: inline-block;
+    margin-top: 10px;
+}
+.sigaSlider ul.nav li{
+    list-style: none;
+    float: left;
+    width:20px;
+    height: 20px;
+    background-image: url(../css/bullets.png);
+    background-position: 0px 0px;
+    cursor: pointer;
+    margin:0px;
+}
+.sigaSlider ul.nav li.active
+{
+    background-position: 0px 18px;
+}
+.sigaSlider div.next, .sigaSlider div.previous{
+    width:30px;
+    height: 30px;
+    background-image: url(../css/arrows.png);
+    background-position: 0px 0px;
+    position: absolute;
+    z-index: 101;
+    top: 45%;
+    cursor: pointer;
+}
+.sigaSlider div.next{
+    right:15px;
+    background-position: -30px 0px;
+}
+.sigaSlider div.previous{
+    left:15px;
+}

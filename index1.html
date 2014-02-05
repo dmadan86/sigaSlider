@@ -1,0 +1,120 @@
+<html>
+<head>
+	<script src="js/cSlider.js"></script>
+
+    <script>
+        window.ontouchmove = function (e) {
+            e.preventDefault();
+        };
+        var t = null;
+        window.onload = function(){
+            t = new cSlider({
+                renderTo: document.getElementById("demo"),
+                //imageArray: ["http://648290826.r.cdn77.net/wp-content/uploads/2013/02/slider1.jpg", "http://648290826.r.cdn77.net/wp-content/uploads/2013/02/slider2.jpg", "http://648290826.r.cdn77.net/wp-content/uploads/2013/02/slider3.jpg", "http://648290826.r.cdn77.net/wp-content/uploads/2013/02/slider4.jpg"],
+                imageArray: ["images/img1.jpg", "images/img2.jpg", "images/img3.jpg", "images/img4.jpg", "images/img5.jpg"],
+                //animationType: cSlider.animationType.dizzleLeft,
+                width: 1024,
+                height: 400,
+                animSpeed: 1000,
+                pauseTime: 3000,
+                controlNav: true,
+                directionNav: true,
+                transitionOrder: [
+                    cSlider.animationType.dizzleLeft,
+
+                    /*
+                    cSlider.animationType.bounceIn,
+                    cSlider.animationType.bounceOut,
+                    cSlider.animationType.bounceDown,
+                    cSlider.animationType.bounceUp,
+                    cSlider.animationType.curtainIn,
+                    cSlider.animationType.curtainOut,
+                    cSlider.animationType.slideIn,
+                    cSlider.animationType.slideOut,
+                    cSlider.animationType.slideDown,
+                    cSlider.animationType.slideUp,
+                    cSlider.animationType.fadeOut,
+                    cSlider.animationType.fadeIn,
+                        */
+                    //cSlider.animationType.randomBubble
+                ]
+            });
+        };
+    </script>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 20px;
+            color: #333333;
+            background-color: #ffffff;
+        }
+        article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {
+            display: block;
+        }
+        audio, canvas, video {
+            display: inline-block;
+            *display: inline;
+            *zoom: 1;
+        }
+        .sigaSlider{
+            overflow:hidden;
+            margin: 25px auto;
+            max-width: 1024px;
+            width:1024px;
+            -webkit-box-shadow: 0px 1px 5px 0px #4a4a4a;
+            -moz-box-shadow: 0px 1px 5px 0px #4a4a4a;
+            box-shadow: 0px 1px 5px 0px #4a4a4a;
+            border: 1px solid #000;
+        }
+        .sigaSlider canvas{
+            display:inline-block;
+        }
+
+        .sigaSlider ul.nav{
+            position: absolute;
+            z-index: 100;
+            bottom: 10px;
+            right: 10px;
+            margin: 0px;
+            padding: 0px;
+        }
+        .sigaSlider ul.nav li{
+            list-style: none;
+            float: left;
+            width:20px;
+            height: 20px;
+            background-image: url(css/bullets.png);
+            background-position: 0px 0px;
+            cursor: pointer;
+        }
+        .sigaSlider ul.nav li.active
+        {
+            background-position: 0px 18px;
+        }
+        .sigaSlider div.next, .sigaSlider div.previous{
+            width:30px;
+            height: 30px;
+            background-image: url(css/arrows.png);
+            background-position: 0px 0px;
+            position: absolute;
+            z-index: 101;
+            top: 45%;
+            cursor: pointer;
+        }
+        .sigaSlider div.next{
+            right:15px;
+            background-position: -30px 0px;
+        }
+        .sigaSlider div.previous{
+            left:15px;
+        }
+
+    </style>
+</head>
+<body>
+	<div id="demo" class="sigaSlider">
+	</div>
+</body>
+</html>

@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script>
+        var requestAnimationFrame = function (fn, delay) {
+            if (!window.requestAnimationFrame &&
+                !window.webkitRequestAnimationFrame &&
+                !(window.mozRequestAnimationFrame && window.mozCancelRequestAnimationFrame) && // Firefox 5 ships without cancel support
+                !window.oRequestAnimationFrame &&
+                !window.msRequestAnimationFrame)
+                return window.setInterval(fn, delay);
+
+            var start = new Date().getTime(),
+                handle = new Object();
+
+            function loop() {
+                var current = new Date().getTime(),
+                    delta = current - start;
+
+                if (delta >= delay) {
+                    fn.call();
+                    start = new Date().getTime();
+                }
+
+                handle.value = requestAnimationFrame(loop);
+            }
+
+            handle.value = requestAnimationFrame(loop);
+            return handle;
+        };
+
+        /**
+         * Behaves the same as clearInterval except uses cancelRequestAnimationFrame() where possible for better performance
+         * @param {int|object} fn The callback function
+         */
+        var cancelAnimationFrame = function (handle) {
+            window.cancelAnimationFrame ? window.cancelAnimationFrame(handle.value) :
+            window.webkitCancelAnimationFrame ? window.webkitCancelAnimationFrame(handle.value) :
+            window.webkitCancelRequestAnimationFrame ? window.webkitCancelRequestAnimationFrame(handle.value) : /* Support for legacy API */
+            window.mozCancelRequestAnimationFrame ? window.mozCancelRequestAnimationFrame(handle.value) :
+            window.oCancelRequestAnimationFrame ? window.oCancelRequestAnimationFrame(handle.value) :
+            window.msCancelRequestAnimationFrame ? window.msCancelRequestAnimationFrame(handle.value) :
+            clearInterval(handle);
+        };
+        
+        var loadImage = function (arr, ref, onComplete) {
+            var len = arr.length;
+            var loadIndex = 0;
+            for (var i = 0; i < len; i++) {
+                (function (url, index) {
+                    var img = new Image();
+                    img.onerror = img.onload = function () {
+                        loadIndex++;
+                        ref[index] = this;
+                        if (loadIndex == len)
+                            onComplete();
+                    };
+                    img.src = url;
+                })(arr[i], i);
+            }
+        };
+        var imageData = [];
+        window.onload = function () {
+            var doc = document;
+            var body = doc.body;
+            var that = this;
+            var main = doc.getElementById("demo");
+            this.main = main;
+            main.style.position = 'relative';
+            main.style.border = "1px solid black";
+            main.style.width = "1024px";
+            main.style.height = "400px";
+            var canvasFront = doc.createElement("canvas");
+            var canvasBack = doc.createElement("canvas");
+            
+            canvasBack.width = canvasFront.width = 1024;
+            canvasBack.height = canvasFront.height = 400;
+            canvasFront.style.zIndex = 51;
+            canvasBack.style.zIndex = 50;
+            canvasBack.style.position = canvasFront.style.position = "absolute";
+            canvasBack.style.top = canvasFront.style.top = "0px";
+            canvasBack.style.left = canvasFront.style.left = "0px";
+
+            main.style.width = this.width + "px";
+            main.style.height = this.height + "px";
+
+            main.appendChild(canvasBack);
+            main.appendChild(canvasFront);
+            
+            var imageArray = ["images/slider1.jpg", "images/slider2.jpg"];
+            loadImage(imageArray, imageData, function () {
+                randomBubble();
+            });
+        };
+        var arr = [
+           { x: 50, y: 50, radius: 100, aradius: 0, isAnim: false },
+           { x: 150, y: 150, radius: 100, aradius: 0, isAnim: false },
+           { x: 250, y: 100, radius: 100, aradius: 0, isAnim: false },
+           { x: 350, y: 150, radius: 100, aradius: 0, isAnim: false },
+           { x: 350, y: 180, radius: 100, aradius: 0, isAnim: false },
+           { x: 490, y: 150, radius: 100, aradius: 0, isAnim: false },
+        ];
+        function randomBubble() {
+            
+        }
+
+    </script>
+</head>
+<body>
+    <div id="demo"></div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script>
+        window.onload = function(){
+            var img = new Image();
+            img.crossOrigin = "Anonymous";
+            img.onload = function(){
+                var t = document.getElementById("test");
+                t.width = this.width;
+                t.height = this.height;
+                var ctx = t.getContext("2d");
+                ctx.drawImage(this, 0, 0);
+            };
+            img.src = "http://farm9.staticflickr.com/8555/8917677808_8fd8901405.jpg";
+        };
+    </script>
+</head>
+<body>
+    <canvas id="test"></canvas>
+</body>
+</html>
